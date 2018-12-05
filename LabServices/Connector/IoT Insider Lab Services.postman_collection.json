@@ -1,0 +1,146 @@
+{
+	"info": {
+		"_postman_id": "8ab943b2-938f-41b4-a3ac-81d8f93b3d46",
+		"name": "IoT Insider Lab Services",
+		"description": "A Custom connector for MS Flow",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "engineers",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "{{apikey}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/api/engineers",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"engineers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "call",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "{{apikey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ 'engineer': 'SEAN', 'message': 'dude, this had better work.' }"
+				},
+				"url": {
+					"raw": "{{host}}/api/engineers/call",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"engineers",
+						"call"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "subscribe",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-API-KEY",
+						"value": "{{apikey}}",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"CallbackUrl\": \"http://localhost:5000/api/engineers/triggertest\" }"
+				},
+				"url": {
+					"raw": "{{host}}/api/engineers/subscribe",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"engineers",
+						"subscribe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "unsubscribe",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{host}}/api/engineers/unsubscribe/1F7E2660-8D21-41AF-8C5B-CF565498BE20",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"engineers",
+						"unsubscribe",
+						"1F7E2660-8D21-41AF-8C5B-CF565498BE20"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"id": "523768d3-2b1a-4761-b526-a54ce1651461",
+			"key": "host",
+			"value": "http://localhost:5000",
+			"type": "string"
+		},
+		{
+			"id": "3a47fd0c-644a-4dd4-89ad-0cd9102605b9",
+			"key": "apikey",
+			"value": "1F7E2660-8D21-41AF-8C5B-CF565498BE20",
+			"type": "string"
+		}
+	]
+}

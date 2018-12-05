@@ -1,0 +1,109 @@
+﻿{
+  "swagger": "2.0",
+  "info": {
+    "title": "IoT Insider Lab Services",
+    "description": "A connector for exposing lab services and triggers.",
+    "version": "1.0.0"
+  },
+  "host": "06c9a867.ngrok.io",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "api_key": { 
+      "type": "apiKey",
+      "in": "header",
+      "name": "X-API-KEY"
+    }
+  },
+  "consumes": [],
+  "produces": [],
+  "paths": {
+    "/api/engineers/call": {
+      "post": {
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "summary": "Calls the specified engineer with the specified message",
+        "description": "The API invokes the Called trigger to call the specified engineer with the specified message",
+        "operationId": "Call",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "x-ms-visibility": "internal",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "engineer": {
+                  "type": "string",
+                  "description": "The engineer being called"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "The message being sent"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "/api/engineers/subscribe": {
+      "x-ms-notification-content": {
+        "schema": {
+          "type": "object",
+          "properties": {
+            "engineer": {
+              "type": "string",
+              "description": "The engineer being called"
+            },
+            "message": {
+              "type": "string",
+              "description": "The message being sent"
+            }
+          }
+        },
+        "description": "Webhook response"
+      },
+      "post": {
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        },
+        "summary": "An engineer has been called",
+        "operationId": "Called",
+        "description": "A trigger indicating an engineer has been called",
+        "x-ms-trigger": "single",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "callbackUrl": {
+                  "type": "string",
+                  "description": "callbackUrl",
+                  "x-ms-notification-url": true,
+                  "x-ms-visibility": "internal"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {},
+  "parameters": {},
+  "responses": {},
+  "security": [],
+  "tags": []
+}
