@@ -26,12 +26,28 @@ namespace LabServices.Controllers
 
         // GET api/engineers
         [HttpGet]
-        public ActionResult<IEnumerable<string>> GetEngineers([FromHeader(Name = "X-API-KEY")] string apiKey = "")
+        public string GetEngineers()
+        {
+            return "This is the only API that works without an API key in the header. Please use Postman or CURL to test other endpoints.";
+        }
+
+        // GET api/engineers/list
+        [HttpGet("list")]
+        public ActionResult<IEnumerable<IDictionary<string, string>>> GetEngineerList([FromHeader(Name = "X-API-KEY")] string apiKey = "")
         {
             if (_dataService.GetKeys().Contains(apiKey.ToUpper()))
             {
                 List<string> engineers = _dataService.GetEngineers();
-                return engineers;
+                List<Dictionary<string, string>> results = new List<Dictionary<string, string>>();
+
+                foreach (string engineer in engineers)
+                {
+                    Dictionary<string, string> item = new Dictionary<string, string>();
+                    item.Add("id", engineer);
+                    item.Add("name", engineer);
+                    results.Add(item);
+                }
+                return results;
             }
             return StatusCode(403);
         }

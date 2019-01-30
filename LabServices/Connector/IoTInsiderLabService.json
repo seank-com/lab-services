@@ -5,21 +5,35 @@
     "description": "A connector for exposing lab services and triggers.",
     "version": "1.0.0"
   },
-  "host": "06c9a867.ngrok.io",
+  "host": "6e020827.ngrok.io",
   "basePath": "/",
   "schemes": [
     "https"
   ],
-  "securityDefinitions": {
-    "api_key": { 
-      "type": "apiKey",
-      "in": "header",
-      "name": "X-API-KEY"
-    }
-  },
-  "consumes": [],
-  "produces": [],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
   "paths": {
+    "/api/engineers/list": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/list"
+            }
+          }
+        },
+        "summary": "Gets a list of engineers",
+        "description": "The API invokes the Called trigger to call the specified engineer with the specified message",
+        "operationId": "List",
+        "parameters": [],
+        "x-ms-visibility": "internal"
+      }
+    },
     "/api/engineers/call": {
       "post": {
         "responses": {
@@ -41,13 +55,27 @@
               "properties": {
                 "engineer": {
                   "type": "string",
-                  "description": "The engineer being called"
+                  "description": "The engineer being called",
+                  "x-ms-summary": "Select Engineer",
+                  "x-ms-dynamic-values": {
+                    "operationId": "List",
+                    "value-path": "id",
+                    "value-title": "name"
+                  },
+                  "title": "Engineer",
+                  "x-ms-visibility": ""
                 },
                 "message": {
                   "type": "string",
-                  "description": "The message being sent"
+                  "description": "The message being sent",
+                  "title": "",
+                  "x-ms-visibility": ""
                 }
-              }
+              },
+              "required": [
+                "engineer",
+                "message"
+              ]
             }
           }
         ]
@@ -101,9 +129,35 @@
       }
     }
   },
-  "definitions": {},
+  "definitions": {
+    "list": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      }
+    }
+  },
   "parameters": {},
   "responses": {},
+  "securityDefinitions": {
+    "api_key": {
+      "type": "apiKey",
+      "in": "header",
+      "name": "X-API-KEY"
+    }
+  },
   "security": [],
   "tags": []
 }
