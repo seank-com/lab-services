@@ -5,7 +5,7 @@ A Custom Connector for Microsoft Flow
 
 - open the LabServices.sln file in Visual Studio
 - press the run button
-  - http://localhost:5000/api/engineers should open in your default browser with "Acess to localhost was denied" this is by design
+  - http://localhost:5000/api/engineers should open in your default browser with a message telling you to use Postman
 
 ## Testing with Postman (locally)
 
