@@ -26,7 +26,7 @@ namespace LabServices.Controllers
 
         // GET api/engineers
         [HttpGet]
-        public string GetEngineers()
+        public ActionResult<string> GetEngineers()
         {
             return "This is the only API that works without an API key in the header. Please use Postman or CURL to test other endpoints.";
         }
